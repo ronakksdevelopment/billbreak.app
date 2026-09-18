@@ -7,34 +7,22 @@
 }
 
 .amount-card {
-  background: linear-gradient(155deg, var(--color-primary) 0%, var(--brand-blue-900) 100%);
-  border-radius: var(--radius-xl);
+  background: var(--surface-brand-strong);
+  border-radius: var(--radius-2xl);
   padding: var(--sp-6) var(--sp-5);
-  color: #fff;
-  box-shadow: var(--shadow-lg);
-  position: relative;
-  overflow: hidden;
-}
-
-.amount-card::after {
-  content: '';
-  position: absolute;
-  width: 220px;
-  height: 220px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.10) 0%, transparent 70%);
-  top: -80px;
-  right: -60px;
-  pointer-events: none;
+  color: var(--text-on-brand);
+  box-shadow: var(--shadow-md);
 }
 
 .amount-card__label {
-  font-size: var(--fs-sm);
-  font-weight: 600;
+  font-size: var(--fs-label);
+  font-weight: var(--fw-semibold);
   color: rgba(255, 255, 255, 0.78);
   margin-bottom: var(--sp-3);
   display: flex;
   align-items: center;
   gap: 8px;
+  letter-spacing: 0.01em;
 }
 
 .amount-input-row {
@@ -45,8 +33,8 @@
 
 .amount-input-row .currency-sym {
   font-family: var(--font-display);
-  font-size: var(--fs-xl);
-  font-weight: 700;
+  font-size: var(--fs-section);
+  font-weight: var(--fw-bold);
   color: rgba(255, 255, 255, 0.85);
 }
 
@@ -55,8 +43,8 @@
   border: none;
   color: #fff;
   font-family: var(--font-display);
-  font-size: var(--fs-3xl);
-  font-weight: 700;
+  font-size: var(--fs-display-lg);
+  font-weight: var(--fw-bold);
   width: 100%;
   padding: 0;
   -webkit-appearance: none;
@@ -87,8 +75,10 @@
   justify-content: space-between;
   margin-top: var(--sp-4);
   padding-top: var(--sp-4);
-  border-top: 1px solid rgba(255, 255, 255, 0.16);
-  font-size: var(--fs-xs);
+  border-top: var(--bw-hairline) solid rgba(255, 255, 255, 0.18);
+  font-size: var(--fs-meta);
+  text-transform: none;
+  letter-spacing: normal;
 }
 
 .amount-card__meta-row .upi-chip {
@@ -97,6 +87,7 @@
   gap: 6px;
   color: rgba(255, 255, 255, 0.85);
   overflow: hidden;
+  font-weight: var(--fw-medium);
 }
 
 .amount-card__meta-row .upi-chip span {
@@ -108,12 +99,15 @@
 
 .amount-card__error {
   margin-top: var(--sp-3);
-  background: rgba(220, 38, 38, 0.18);
-  border: 1px solid rgba(220, 38, 38, 0.4);
-  color: #FFD9D9;
+  background: rgba(194, 43, 33, 0.24);
+  border: var(--bw-hairline) solid rgba(255, 255, 255, 0.3);
+  color: #FBE1DE;
   padding: var(--sp-2) var(--sp-3);
   border-radius: var(--radius-sm);
-  font-size: var(--fs-xs);
+  font-size: var(--fs-meta);
+  font-weight: var(--fw-medium);
+  text-transform: none;
+  letter-spacing: normal;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -127,8 +121,8 @@
   background: none;
   border: none;
   color: var(--color-primary);
-  font-weight: 600;
-  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-label);
   padding: var(--sp-4) var(--sp-1);
   cursor: pointer;
 }
@@ -156,40 +150,44 @@
   padding-top: var(--sp-1);
 }
 
-/* Split summary */
+/* Split summary — echoes the logo's two-tone ledger: one stat per party */
 .split-summary {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
   margin: var(--sp-5) 0 var(--sp-4);
-  padding: var(--sp-4);
-  background: var(--color-accent-soft);
   border-radius: var(--radius-md);
-  border: 1px solid rgba(217, 119, 6, 0.18);
+  border: var(--bw-hairline) solid var(--border-subtle);
+  overflow: hidden;
 }
 
 .split-summary__stat {
   text-align: center;
   flex: 1;
+  padding: var(--sp-4) var(--sp-2);
+  background: var(--bg-surface);
 }
 
 .split-summary__stat strong {
   display: block;
   font-family: var(--font-display);
-  font-size: var(--fs-lg);
-  color: var(--color-accent-strong);
+  font-size: var(--fs-section);
+  font-weight: var(--fw-bold);
+  color: var(--text-primary);
 }
 
 .split-summary__stat span {
-  font-size: var(--fs-2xs);
-  color: var(--text-secondary);
-  font-weight: 600;
+  font-size: var(--fs-caption);
+  color: var(--text-tertiary);
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wide);
 }
 
 .split-summary__divider {
-  width: 1px;
-  height: 32px;
-  background: rgba(217, 119, 6, 0.25);
+  width: var(--bw-hairline);
+  background: var(--border-subtle);
+  flex-shrink: 0;
 }
 
 /* QR results grid */
@@ -204,6 +202,11 @@
   margin-bottom: var(--sp-4);
 }
 
+.qr-results__heading h2 {
+  font-size: var(--fs-section);
+  font-weight: var(--fw-semibold);
+}
+
 .qr-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -212,7 +215,7 @@
 
 .qr-card {
   background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
+  border: var(--bw-hairline) solid var(--border-subtle);
   border-radius: var(--radius-lg);
   padding: var(--sp-4);
   text-align: center;
@@ -230,12 +233,12 @@
 }
 
 .qr-card__index {
-  font-size: var(--fs-2xs);
-  font-weight: 700;
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-bold);
   color: var(--text-tertiary);
   margin-bottom: var(--sp-2);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--ls-wide);
 }
 
 .qr-card__canvas-wrap {
@@ -248,6 +251,7 @@
   overflow: hidden;
   background: #fff;
   padding: var(--sp-2);
+  border: var(--bw-hairline) solid var(--border-subtle);
 }
 
 .qr-card__canvas-wrap canvas,
@@ -279,17 +283,19 @@
 
 .qr-card__amount {
   font-family: var(--font-display);
-  font-size: var(--fs-lg);
-  font-weight: 700;
+  font-size: var(--fs-section);
+  font-weight: var(--fw-bold);
   color: var(--color-primary);
   margin-bottom: var(--sp-1);
 }
 
 .qr-card__status {
-  font-size: var(--fs-2xs);
-  font-weight: 600;
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
   color: var(--text-tertiary);
   margin-bottom: var(--sp-3);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wide);
 }
 
 .qr-card__status.is-paid {
@@ -312,6 +318,7 @@
 
 .confirm-paid-btn.is-confirmed {
   background: var(--color-success);
+  border-color: var(--color-success);
   pointer-events: none;
 }
 
@@ -380,13 +387,14 @@
 }
 
 .success-check-card h3 {
-  font-size: var(--fs-lg);
+  font-size: var(--fs-body-lg);
+  font-weight: var(--fw-semibold);
   margin-bottom: var(--sp-2);
   color: var(--color-success-strong);
 }
 
 .success-check-card p {
-  font-size: var(--fs-sm);
+  font-size: var(--fs-label);
   color: var(--text-secondary);
 }
 
@@ -407,9 +415,52 @@
   color: var(--text-tertiary);
   background: none;
   border: none;
-  font-size: var(--fs-sm);
-  font-weight: 600;
+  font-size: var(--fs-label);
+  font-weight: var(--fw-semibold);
   padding: var(--sp-3);
   cursor: pointer;
   width: 100%;
+}
+
+.reset-link:hover {
+  color: var(--text-secondary);
+}
+
+/* ---- Tablet / desktop: two-column layout, amount card gets more
+   presence and the QR grid gets more columns rather than stretching
+   individual cards too wide. ---- */
+@media (min-width: 960px) {
+  .splitter {
+    padding: var(--sp-6) 0 var(--sp-8);
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: var(--sp-8);
+    align-items: start;
+  }
+
+  .amount-card {
+    padding: var(--sp-8) var(--sp-6);
+  }
+
+  .amount-card,
+  .optional-fields-toggle,
+  .optional-fields,
+  #generate-qr-btn {
+    grid-column: 1;
+  }
+
+  .qr-results,
+  #qr-results-container .split-summary,
+  #qr-results-container .finalize-bar,
+  #qr-results-container .reset-link {
+    grid-column: 2;
+  }
+
+  #qr-results-container {
+    display: contents;
+  }
+
+  .qr-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
 }

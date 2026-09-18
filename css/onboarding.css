@@ -7,13 +7,9 @@
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(180deg, var(--brand-blue-800) 0%, var(--brand-blue-900) 100%);
+  background: var(--brand-blue-950);
   color: #fff;
   padding: calc(var(--safe-top) + var(--sp-6)) var(--sp-6) calc(var(--safe-bottom) + var(--sp-6));
-}
-
-[data-theme='dark'] .onboarding {
-  background: linear-gradient(180deg, #0E1C3B 0%, #060B18 100%);
 }
 
 .onboarding__slides {
@@ -52,30 +48,27 @@
 .onboarding__art {
   width: 168px;
   height: 168px;
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-2xl);
   background: rgba(255, 255, 255, 0.08);
+  border: var(--bw-hairline) solid rgba(255, 255, 255, 0.14);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 4.5rem;
+  font-size: 4.25rem;
   margin-bottom: var(--sp-8);
   color: var(--brand-amber-500);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.onboarding__art .fa-solid {
-  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.25));
 }
 
 .onboarding__slide h1 {
-  font-size: var(--fs-2xl);
+  font-size: var(--fs-display);
+  font-weight: var(--fw-semibold);
   color: #fff;
   margin-bottom: var(--sp-3);
   line-height: var(--lh-tight);
 }
 
 .onboarding__slide p {
-  font-size: var(--fs-base);
+  font-size: var(--fs-body);
   color: rgba(255, 255, 255, 0.78);
   line-height: var(--lh-relaxed);
   max-width: 32ch;
@@ -90,13 +83,14 @@
 }
 
 .onboarding__badge {
-  font-size: var(--fs-2xs);
-  font-weight: 700;
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-bold);
   padding: 5px 12px;
   border-radius: var(--radius-full);
   background: rgba(255, 255, 255, 0.1);
   color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: var(--bw-hairline) solid rgba(255, 255, 255, 0.16);
+  letter-spacing: 0.02em;
 }
 
 .onboarding__dots {
@@ -111,7 +105,11 @@
   height: 8px;
   border-radius: var(--radius-full);
   background: rgba(255, 255, 255, 0.28);
-  transition: all var(--dur-base) var(--ease-standard);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: width var(--dur-base) var(--ease-standard),
+              background-color var(--dur-base) var(--ease-standard);
 }
 
 .onboarding__dot.is-active {
@@ -130,21 +128,27 @@
 
 .onboarding__footer .btn-primary {
   background: var(--brand-amber-500);
+  border-color: var(--brand-amber-500);
   color: #241701;
 }
 
 .onboarding__footer .btn-primary:hover {
   background: var(--brand-amber-600);
+  border-color: var(--brand-amber-600);
 }
 
 .onboarding__skip {
   background: none;
   border: none;
   color: rgba(255, 255, 255, 0.65);
-  font-size: var(--fs-sm);
-  font-weight: 600;
+  font-size: var(--fs-label);
+  font-weight: var(--fw-semibold);
   padding: var(--sp-2);
   cursor: pointer;
+}
+
+.onboarding__skip:hover {
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /* ---- Setup form (business name / UPI ID) ---- */
@@ -178,13 +182,14 @@
 }
 
 .setup-screen__header h1 {
-  font-size: var(--fs-xl);
+  font-size: var(--fs-page);
+  font-weight: var(--fw-semibold);
   margin-bottom: var(--sp-2);
 }
 
 .setup-screen__header p {
   color: var(--text-secondary);
-  font-size: var(--fs-sm);
+  font-size: var(--fs-label);
   max-width: 34ch;
   margin: 0 auto;
 }
@@ -209,7 +214,10 @@
   background: var(--color-primary-tint);
   border-radius: var(--radius-md);
   padding: var(--sp-3) var(--sp-4);
-  font-size: var(--fs-xs);
+  font-size: var(--fs-meta);
+  font-weight: var(--fw-regular);
+  text-transform: none;
+  letter-spacing: normal;
   color: var(--text-secondary);
   line-height: var(--lh-relaxed);
   margin-bottom: var(--sp-6);
@@ -218,4 +226,14 @@
 .upi-verify-note .fa-solid {
   color: var(--color-primary);
   margin-top: 2px;
+}
+
+/* ---- Desktop: onboarding and setup center inside a wider viewport
+   without the content growing to full width. ---- */
+@media (min-width: 960px) {
+  .onboarding__art {
+    width: 192px;
+    height: 192px;
+    font-size: 5rem;
+  }
 }

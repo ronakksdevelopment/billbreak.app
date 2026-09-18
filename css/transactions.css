@@ -35,9 +35,9 @@
 }
 
 .tx-filter-summary__count {
-  font-size: var(--fs-sm);
+  font-size: var(--fs-label);
   color: var(--text-tertiary);
-  font-weight: 500;
+  font-weight: var(--fw-medium);
 }
 
 .tx-export-menu-btn {
@@ -63,7 +63,7 @@
 
 .tx-item {
   background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
+  border: var(--bw-hairline) solid var(--border-subtle);
   border-radius: var(--radius-md);
   padding: var(--sp-4);
   position: relative;
@@ -71,8 +71,13 @@
   display: flex;
   align-items: center;
   gap: var(--sp-3);
-  transition: transform var(--dur-base) var(--ease-standard);
+  transition: transform var(--dur-base) var(--ease-standard),
+              border-color var(--dur-fast) var(--ease-standard);
   touch-action: pan-y;
+}
+
+.tx-item:hover {
+  border-color: var(--border-strong);
 }
 
 .tx-item.is-swiping {
@@ -106,14 +111,15 @@
 
 .tx-item__amount {
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: var(--fs-md);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-body-lg);
   color: var(--text-primary);
   white-space: nowrap;
 }
 
 .tx-item__name {
-  font-size: var(--fs-sm);
+  font-size: var(--fs-label);
+  font-weight: var(--fw-medium);
   color: var(--text-secondary);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -125,7 +131,7 @@
   align-items: center;
   gap: var(--sp-3);
   margin-top: 2px;
-  font-size: var(--fs-2xs);
+  font-size: var(--fs-caption);
   color: var(--text-tertiary);
 }
 
@@ -136,8 +142,8 @@
 }
 
 .tx-item__qr-count {
-  font-size: var(--fs-2xs);
-  font-weight: 700;
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-bold);
   color: var(--color-primary);
   background: var(--color-primary-tint);
   padding: 2px 8px;
@@ -181,8 +187,8 @@
   display: flex;
   justify-content: space-between;
   padding: var(--sp-3) 0;
-  border-bottom: 1px solid var(--border-subtle);
-  font-size: var(--fs-sm);
+  border-bottom: var(--bw-hairline) solid var(--border-subtle);
+  font-size: var(--fs-label);
 }
 
 .tx-detail-row:last-of-type {
@@ -191,12 +197,14 @@
 
 .tx-detail-row dt {
   color: var(--text-tertiary);
+  font-weight: var(--fw-medium);
 }
 
 .tx-detail-row dd {
   margin: 0;
-  font-weight: 600;
+  font-weight: var(--fw-semibold);
   text-align: right;
+  color: var(--text-primary);
 }
 
 .tx-detail-qr-list {
@@ -213,8 +221,8 @@
   padding: var(--sp-3);
   background: var(--bg-surface-sunken);
   border-radius: var(--radius-sm);
-  font-size: var(--fs-sm);
-  font-weight: 600;
+  font-size: var(--fs-label);
+  font-weight: var(--fw-semibold);
 }
 
 .tx-detail-actions {
@@ -226,4 +234,27 @@
 
 .tx-detail-actions .btn-block-full {
   grid-column: 1 / -1;
+}
+
+/* ---- Tablet / desktop: list becomes a denser two-column grid of rows,
+   filters sit inline in a single row rather than stacking. ---- */
+@media (min-width: 960px) {
+  .transactions {
+    padding: var(--sp-6) 0 var(--sp-8);
+  }
+
+  .tx-filter-row .chip-row {
+    flex-wrap: wrap;
+    overflow: visible;
+  }
+
+  .tx-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-3);
+  }
+
+  .tx-item__delete-reveal {
+    display: none;
+  }
 }

@@ -1,67 +1,103 @@
 /* ==========================================================================
    BillBreak — Design Tokens
-   Central source of truth for color, type, spacing and motion.
-   Light and dark themes are expressed as CSS custom property overrides
-   on [data-theme="light"] / [data-theme="dark"] set on <html>.
+   Single source of truth for color, type, spacing, radius and motion.
+
+   Brand language is derived from the BillBreak mark: a deep confident blue
+   field, a ledger split evenly into a green half and an amber half (the
+   two-party payment split), rendered with firm geometry and generous
+   rounded corners. That language is translated here into flat, solid,
+   accessible tokens — no gradients, no glassmorphism, no neon.
+
+   Light and dark themes are expressed as custom-property overrides on
+   [data-theme="light"] / [data-theme="dark"] set on <html>.
    ========================================================================== */
 
 :root {
-  /* ---- Brand palette (theme-independent) ---- */
-  --brand-blue-900: #082A66;
-  --brand-blue-800: #0B3D91;
-  --brand-blue-700: #114FB8;
-  --brand-blue-600: #1A5FD6;
-  --brand-blue-100: #E4ECFB;
-  --brand-blue-50:  #F1F5FD;
+  /* ---- Brand ramp (theme-independent) ----
+     Primary: the logo's blue field, tuned to a single confident, slightly
+     ink-leaning blue for UI use — steady rather than glossy.
+     Split-green / split-amber: the two halves of the logo's open ledger,
+     used consistently as "party A / party B" and success / attention states.
+  ---------------------------------------------------------------------- */
+  --brand-blue-950: #0A2454;
+  --brand-blue-900: #0E2E68;
+  --brand-blue-800: #123B84;
+  --brand-blue-700: #1848A3;
+  --brand-blue-600: #2158C2;
+  --brand-blue-500: #3568D4;
+  --brand-blue-100: #E3EAF9;
+  --brand-blue-50:  #F1F5FC;
 
-  --brand-green-700: #0F7A3D;
-  --brand-green-600: #16A34A;
-  --brand-green-500: #22C55E;
-  --brand-green-100: #DCFCE7;
+  --brand-green-800: #0D5E30;
+  --brand-green-700: #147A3E;
+  --brand-green-600: #1C9A50;
+  --brand-green-500: #26AD5C;
+  --brand-green-100: #DDF3E4;
+  --brand-green-50:  #F0FAF3;
 
-  --brand-amber-700: #B45309;
-  --brand-amber-600: #D97706;
-  --brand-amber-500: #F59E0B;
-  --brand-amber-100: #FEF3C7;
+  --brand-amber-800: #8A4B04;
+  --brand-amber-700: #A85F06;
+  --brand-amber-600: #C87A0A;
+  --brand-amber-500: #DE8F14;
+  --brand-amber-100: #FBEAD1;
+  --brand-amber-50:  #FDF4E7;
 
-  --brand-red-600: #DC2626;
-  --brand-red-100: #FEE2E2;
+  --brand-red-700: #A3241C;
+  --brand-red-600: #C22B21;
+  --brand-red-100: #FBE1DE;
+  --brand-red-50:  #FDF0EF;
 
-  /* ---- Type ---- */
+  --brand-slate-950: #0B1420;
+  --brand-slate-900: #101B2C;
+
+  /* ---- Typography ---- */
   --font-display: 'Poppins', 'Segoe UI', system-ui, sans-serif;
   --font-body: 'Inter', 'Segoe UI', system-ui, sans-serif;
 
-  --fs-2xs: 0.6875rem;   /* 11px */
-  --fs-xs:  0.75rem;     /* 12px */
-  --fs-sm:  0.8125rem;   /* 13px */
-  --fs-base:0.9375rem;   /* 15px */
-  --fs-md:  1.0625rem;   /* 17px */
-  --fs-lg:  1.25rem;     /* 20px */
-  --fs-xl:  1.5rem;      /* 24px */
-  --fs-2xl: 1.875rem;    /* 30px */
-  --fs-3xl: 2.375rem;    /* 38px */
+  /* Type scale — distinct roles, not just sizes */
+  --fs-caption:  0.6875rem;  /* 11px — captions, timestamps, microcopy */
+  --fs-meta:     0.75rem;    /* 12px — metadata, badges, labels-sm */
+  --fs-label:    0.8125rem;  /* 13px — form labels, tab labels */
+  --fs-body:     0.9375rem;  /* 15px — body / default */
+  --fs-body-lg:  1.0625rem;  /* 17px — emphasized body, list titles */
+  --fs-section:  1.25rem;    /* 20px — section headings */
+  --fs-page:     1.5rem;     /* 24px — page titles */
+  --fs-display:  1.875rem;   /* 30px — display headings */
+  --fs-display-lg: 2.375rem; /* 38px — hero numerals (bill amount) */
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
 
   --lh-tight: 1.2;
   --lh-normal: 1.5;
   --lh-relaxed: 1.65;
 
-  /* ---- Spacing scale (4px base) ---- */
-  --sp-1: 0.25rem;
-  --sp-2: 0.5rem;
-  --sp-3: 0.75rem;
-  --sp-4: 1rem;
-  --sp-5: 1.25rem;
-  --sp-6: 1.5rem;
-  --sp-8: 2rem;
-  --sp-10: 2.5rem;
-  --sp-12: 3rem;
-  --sp-16: 4rem;
+  --ls-tight: -0.01em;
+  --ls-wide: 0.04em;
+  --ls-wider: 0.06em;
 
-  /* ---- Radius ---- */
+  /* ---- Spacing (strict 8pt rhythm; 4px used only for hairline fixes) ---- */
+  --sp-1: 0.25rem;   /* 4  */
+  --sp-2: 0.5rem;    /* 8  */
+  --sp-3: 0.75rem;   /* 12 */
+  --sp-4: 1rem;      /* 16 */
+  --sp-5: 1.25rem;   /* 20 */
+  --sp-6: 1.5rem;    /* 24 */
+  --sp-8: 2rem;      /* 32 */
+  --sp-10: 2.5rem;   /* 40 */
+  --sp-12: 3rem;     /* 48 */
+  --sp-16: 4rem;     /* 64 */
+
+  /* ---- Radius —
+     Rounded-square geometry echoing the logo's app-icon corner treatment,
+     applied consistently by component scale. ---- */
   --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
-  --radius-xl: 28px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-2xl: 28px;
   --radius-full: 999px;
 
   /* ---- Motion ---- */
@@ -69,22 +105,38 @@
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
   --dur-fast: 120ms;
-  --dur-base: 220ms;
-  --dur-slow: 420ms;
-  --dur-slower: 650ms;
+  --dur-base: 200ms;
+  --dur-slow: 360ms;
+  --dur-slower: 560ms;
 
   /* ---- Layout ---- */
   --max-content-width: 560px;
   --tabbar-height: 68px;
-  --topbar-height: 56px;
+  --topbar-height: 60px;
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-top: env(safe-area-inset-top, 0px);
 
-  /* ---- Elevation (shared shape, theme supplies actual shadow color) ---- */
-  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 1px rgba(15, 23, 42, 0.04);
-  --shadow-md: 0 4px 14px rgba(15, 23, 42, 0.09), 0 1px 3px rgba(15, 23, 42, 0.06);
-  --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.14), 0 2px 6px rgba(15, 23, 42, 0.08);
-  --shadow-card-rest: 0 1px 3px rgba(15, 23, 42, 0.08);
+  /* ---- Elevation — flat, restrained, functional (no decorative glow) ---- */
+  --shadow-xs: 0 1px 2px rgba(16, 27, 44, 0.06);
+  --shadow-sm: 0 1px 3px rgba(16, 27, 44, 0.08), 0 1px 2px rgba(16, 27, 44, 0.05);
+  --shadow-md: 0 4px 10px rgba(16, 27, 44, 0.10), 0 1px 3px rgba(16, 27, 44, 0.06);
+  --shadow-lg: 0 12px 24px rgba(16, 27, 44, 0.14), 0 2px 6px rgba(16, 27, 44, 0.07);
+  --shadow-card-rest: 0 1px 2px rgba(16, 27, 44, 0.06);
+
+  /* ---- Border width scale ---- */
+  --bw-hairline: 1px;
+  --bw-thick: 1.5px;
+
+  /* ---- Brand surface —
+     A deep, saturated blue fill used for large brand surfaces (top bar,
+     hero amount card, onboarding). Stays constant and confident across
+     both themes, unlike --color-primary which is tuned per theme for
+     accessible text/icon/interactive use on top of --bg-surface. ---- */
+  --surface-brand: var(--brand-blue-800);
+  --surface-brand-strong: var(--brand-blue-950);
+  --text-on-brand: #FFFFFF;
+  --text-on-brand-muted: rgba(255, 255, 255, 0.78);
+  --border-on-brand: rgba(255, 255, 255, 0.18);
 }
 
 /* ==========================================================================
@@ -93,41 +145,55 @@
 :root,
 [data-theme='light'] {
   --color-primary: var(--brand-blue-800);
-  --color-primary-strong: var(--brand-blue-900);
+  --color-primary-strong: var(--brand-blue-950);
+  --color-primary-hover: var(--brand-blue-900);
   --color-primary-soft: var(--brand-blue-100);
   --color-primary-tint: var(--brand-blue-50);
 
   --color-success: var(--brand-green-600);
-  --color-success-strong: var(--brand-green-700);
+  --color-success-strong: var(--brand-green-800);
   --color-success-soft: var(--brand-green-100);
+  --color-success-tint: var(--brand-green-50);
 
-  --color-accent: var(--brand-amber-500);
-  --color-accent-strong: var(--brand-amber-700);
+  --color-accent: var(--brand-amber-600);
+  --color-accent-strong: var(--brand-amber-800);
   --color-accent-soft: var(--brand-amber-100);
+  --color-accent-tint: var(--brand-amber-50);
+
+  --color-warning: var(--brand-amber-600);
+  --color-warning-soft: var(--brand-amber-100);
 
   --color-danger: var(--brand-red-600);
+  --color-danger-strong: var(--brand-red-700);
   --color-danger-soft: var(--brand-red-100);
+  --color-danger-tint: var(--brand-red-50);
 
-  --bg-app: #F5F7FB;
+  --color-info: var(--brand-blue-700);
+  --color-info-soft: var(--brand-blue-100);
+
+  --bg-app: #F4F6FA;
   --bg-surface: #FFFFFF;
   --bg-surface-raised: #FFFFFF;
-  --bg-surface-sunken: #EEF2F9;
-  --bg-overlay: rgba(15, 23, 42, 0.48);
+  --bg-surface-sunken: #ECF0F7;
+  --bg-overlay: rgba(11, 20, 32, 0.50);
+  --bg-inverse: var(--brand-slate-950);
 
-  --border-subtle: #E3E8F1;
-  --border-default: #D3DAE6;
-  --border-strong: #B7C1D6;
+  --border-subtle: #E4E9F1;
+  --border-default: #D3DBE8;
+  --border-strong: #B7C2D6;
 
-  --text-primary: #0F172A;
-  --text-secondary: #4B5871;
+  --text-primary: #101B2C;
+  --text-secondary: #4A5872;
   --text-tertiary: #7C879C;
+  --text-disabled: #A9B2C3;
   --text-on-primary: #FFFFFF;
   --text-on-success: #FFFFFF;
-  --text-on-accent: #1F1300;
+  --text-on-accent: #FFFFFF;
+  --text-on-danger: #FFFFFF;
   --text-link: var(--brand-blue-700);
 
-  --skeleton-base: #E7EBF2;
-  --skeleton-shine: #F5F7FB;
+  --skeleton-base: #E7EBF3;
+  --skeleton-shine: #F5F7FC;
 
   color-scheme: light;
 }
@@ -136,49 +202,64 @@
    DARK THEME
    ========================================================================== */
 [data-theme='dark'] {
-  --color-primary: #4C82E8;
-  --color-primary-strong: #6C9BF0;
-  --color-primary-soft: #16264A;
-  --color-primary-tint: #101B33;
+  --color-primary: #5C8CE8;
+  --color-primary-strong: #8FB2F2;
+  --color-primary-hover: #74A0EE;
+  --color-primary-soft: #17284A;
+  --color-primary-tint: #101C33;
 
-  --color-success: #34D673;
-  --color-success-strong: #4FE28C;
-  --color-success-soft: #113822;
+  --color-success: #3BBE73;
+  --color-success-strong: #6ED89A;
+  --color-success-soft: #123B26;
+  --color-success-tint: #0E2A1B;
 
-  --color-accent: #FBBF3F;
-  --color-accent-strong: #FFD066;
-  --color-accent-soft: #3A2A0B;
+  --color-accent: #E4A13E;
+  --color-accent-strong: #F2C271;
+  --color-accent-soft: #3E2A0C;
+  --color-accent-tint: #2A1D08;
 
-  --color-danger: #F16060;
-  --color-danger-soft: #3A1414;
+  --color-warning: #E4A13E;
+  --color-warning-soft: #3E2A0C;
 
-  --bg-app: #0B1220;
-  --bg-surface: #131C2E;
-  --bg-surface-raised: #17223A;
-  --bg-surface-sunken: #0E1626;
-  --bg-overlay: rgba(2, 6, 16, 0.64);
+  --color-danger: #E8695F;
+  --color-danger-strong: #F0938B;
+  --color-danger-soft: #3D1815;
+  --color-danger-tint: #2A100E;
 
-  --border-subtle: #212E47;
-  --border-default: #2A3854;
-  --border-strong: #3B4C6E;
+  --color-info: #6C9BF0;
+  --color-info-soft: #17284A;
+
+  --bg-app: #0A121F;
+  --bg-surface: #121D30;
+  --bg-surface-raised: #17233A;
+  --bg-surface-sunken: #0D1627;
+  --bg-overlay: rgba(3, 7, 14, 0.66);
+  --bg-inverse: #EEF2FB;
+
+  --border-subtle: #1F2C46;
+  --border-default: #293A58;
+  --border-strong: #3A4E71;
 
   --text-primary: #EEF2FB;
-  --text-secondary: #A6B1C9;
-  --text-tertiary: #78839C;
+  --text-secondary: #A5B1C9;
+  --text-tertiary: #79839C;
+  --text-disabled: #4C566E;
   --text-on-primary: #FFFFFF;
   --text-on-success: #08210F;
-  --text-on-accent: #1F1300;
-  --text-link: #82AAF5;
+  --text-on-accent: #241704;
+  --text-on-danger: #2A0705;
+  --text-link: #8CB1F5;
 
   --skeleton-base: #1B2740;
   --skeleton-shine: #22304C;
 
   color-scheme: dark;
 
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.36);
-  --shadow-lg: 0 14px 34px rgba(0, 0, 0, 0.48);
-  --shadow-card-rest: 0 1px 3px rgba(0, 0, 0, 0.32);
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.28);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.32);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.38);
+  --shadow-lg: 0 14px 30px rgba(0, 0, 0, 0.48);
+  --shadow-card-rest: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 /* Respect user's reduced-motion preference globally */

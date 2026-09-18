@@ -12,7 +12,7 @@
  * -----------------------------------------------------------------------
  */
 
-const CACHE_VERSION = 'billbreak-v1.0.0';
+const CACHE_VERSION = 'billbreak-v2.0.0';
 const CACHE_NAME = `billbreak-cache-${CACHE_VERSION}`;
 
 const APP_SHELL_FILES = [

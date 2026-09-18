@@ -1,5 +1,5 @@
 /* ==========================================================================
-   BillBreak — Base / Reset / Typography
+   BillBreak — Base / Reset / Typography System
    ========================================================================== */
 
 *,
@@ -18,7 +18,8 @@ body {
   margin: 0;
   min-height: 100%;
   font-family: var(--font-body);
-  font-size: var(--fs-base);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-regular);
   line-height: var(--lh-normal);
   color: var(--text-primary);
   background: var(--bg-app);
@@ -31,11 +32,11 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: var(--fw-semibold);
   line-height: var(--lh-tight);
   margin: 0;
   color: var(--text-primary);
-  letter-spacing: -0.01em;
+  letter-spacing: var(--ls-tight);
 }
 
 p {
@@ -72,6 +73,12 @@ svg {
   display: block;
 }
 
+hr {
+  border: none;
+  border-top: var(--bw-hairline) solid var(--border-subtle);
+  margin: 0;
+}
+
 /* Visible keyboard focus ring everywhere — accessibility floor */
 :focus-visible {
   outline: 2px solid var(--color-primary);
@@ -106,13 +113,90 @@ svg {
   padding: var(--sp-3) var(--sp-4);
   z-index: 999;
   border-radius: 0 0 var(--radius-sm) 0;
+  font-weight: var(--fw-semibold);
 }
 
 .skip-link:focus {
   left: 0;
 }
 
-/* App shell */
+/* ==========================================================================
+   Typography system
+   Distinct, named roles rather than ad hoc sizes — used across every
+   screen so headings, labels and metadata read consistently.
+   ========================================================================== */
+
+.text-display {
+  font-family: var(--font-display);
+  font-size: var(--fs-display);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+  color: var(--text-primary);
+}
+
+.text-page-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-page);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+  color: var(--text-primary);
+}
+
+.text-section-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-section);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-tight);
+  color: var(--text-primary);
+}
+
+.text-label {
+  font-size: var(--fs-label);
+  font-weight: var(--fw-semibold);
+  color: var(--text-secondary);
+  letter-spacing: 0.01em;
+}
+
+.text-body {
+  font-size: var(--fs-body);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-normal);
+  color: var(--text-primary);
+}
+
+.text-body-lg {
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-normal);
+  color: var(--text-primary);
+}
+
+.text-caption {
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-medium);
+  color: var(--text-tertiary);
+  letter-spacing: 0.01em;
+}
+
+.text-meta {
+  font-size: var(--fs-meta);
+  font-weight: var(--fw-semibold);
+  color: var(--text-tertiary);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+}
+
+.text-action {
+  font-family: var(--font-display);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.01em;
+}
+
+/* ==========================================================================
+   App shell — responsive across mobile / tablet / desktop
+   ========================================================================== */
 #app {
   min-height: 100%;
   display: flex;
@@ -129,4 +213,26 @@ svg {
 
 [hidden] {
   display: none !important;
+}
+
+/* ---- Tablet ---- */
+@media (min-width: 640px) {
+  :root {
+    --max-content-width: 640px;
+  }
+}
+
+/* ---- Desktop: app shell gains breathing room and the tab bar can sit
+   as a persistent rail rather than a bottom bar, while every screen's
+   internal grid still scales gracefully. ---- */
+@media (min-width: 960px) {
+  :root {
+    --max-content-width: 880px;
+  }
+
+  .app-main {
+    padding-bottom: var(--sp-12);
+    padding-left: var(--sp-6);
+    padding-right: var(--sp-6);
+  }
 }

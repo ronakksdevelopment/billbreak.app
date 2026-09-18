@@ -15,7 +15,7 @@ const BBTheme = (() => {
     root.setAttribute('data-theme', theme);
     const themeColorMeta = document.querySelector('meta[name="theme-color"]');
     if (themeColorMeta) {
-      themeColorMeta.setAttribute('content', theme === 'dark' ? '#0B1220' : '#0B3D91');
+      themeColorMeta.setAttribute('content', theme === 'dark' ? '#0A121F' : '#123B84');
     }
     updateToggleIcon(theme);
     updateSettingsSwitch(theme);

@@ -1,0 +1,415 @@
+/* ==========================================================================
+   BillBreak — QR Splitter (home) screen
+   ========================================================================== */
+
+.splitter {
+  padding: var(--sp-5) var(--sp-4) var(--sp-6);
+}
+
+.amount-card {
+  background: linear-gradient(155deg, var(--color-primary) 0%, var(--brand-blue-900) 100%);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-6) var(--sp-5);
+  color: #fff;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.amount-card::after {
+  content: '';
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.10) 0%, transparent 70%);
+  top: -80px;
+  right: -60px;
+  pointer-events: none;
+}
+
+.amount-card__label {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.78);
+  margin-bottom: var(--sp-3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.amount-input-row {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.amount-input-row .currency-sym {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.amount-input {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: var(--fs-3xl);
+  font-weight: 700;
+  width: 100%;
+  padding: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.amount-input:focus {
+  outline: none;
+}
+
+.amount-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* Hide number input spinners */
+.amount-input::-webkit-outer-spin-button,
+.amount-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.amount-input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.amount-card__meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--sp-4);
+  padding-top: var(--sp-4);
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  font-size: var(--fs-xs);
+}
+
+.amount-card__meta-row .upi-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.85);
+  overflow: hidden;
+}
+
+.amount-card__meta-row .upi-chip span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;
+}
+
+.amount-card__error {
+  margin-top: var(--sp-3);
+  background: rgba(220, 38, 38, 0.18);
+  border: 1px solid rgba(220, 38, 38, 0.4);
+  color: #FFD9D9;
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-xs);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Optional fields (name / note) toggle */
+.optional-fields-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  padding: var(--sp-4) var(--sp-1);
+  cursor: pointer;
+}
+
+.optional-fields-toggle .fa-solid {
+  transition: transform var(--dur-base) var(--ease-standard);
+  font-size: 0.7rem;
+}
+
+.optional-fields-toggle[aria-expanded='true'] .fa-solid {
+  transform: rotate(180deg);
+}
+
+.optional-fields {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height var(--dur-slow) var(--ease-standard);
+}
+
+.optional-fields.is-open {
+  max-height: 320px;
+}
+
+.optional-fields__inner {
+  padding-top: var(--sp-1);
+}
+
+/* Split summary */
+.split-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: var(--sp-5) 0 var(--sp-4);
+  padding: var(--sp-4);
+  background: var(--color-accent-soft);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(217, 119, 6, 0.18);
+}
+
+.split-summary__stat {
+  text-align: center;
+  flex: 1;
+}
+
+.split-summary__stat strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  color: var(--color-accent-strong);
+}
+
+.split-summary__stat span {
+  font-size: var(--fs-2xs);
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.split-summary__divider {
+  width: 1px;
+  height: 32px;
+  background: rgba(217, 119, 6, 0.25);
+}
+
+/* QR results grid */
+.qr-results {
+  margin-top: var(--sp-5);
+}
+
+.qr-results__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-4);
+}
+
+.qr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--sp-4);
+}
+
+.qr-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-4);
+  text-align: center;
+  box-shadow: var(--shadow-card-rest);
+  opacity: 0;
+  transform: translateY(14px) scale(0.96);
+  animation: qr-reveal var(--dur-slow) var(--ease-spring) forwards;
+}
+
+@keyframes qr-reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.qr-card__index {
+  font-size: var(--fs-2xs);
+  font-weight: 700;
+  color: var(--text-tertiary);
+  margin-bottom: var(--sp-2);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.qr-card__canvas-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-width: 220px;
+  margin: 0 auto var(--sp-3);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: #fff;
+  padding: var(--sp-2);
+}
+
+.qr-card__canvas-wrap canvas,
+.qr-card__canvas-wrap img.qr-canvas-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.qr-card__logo-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 22%;
+  height: 22%;
+  border-radius: 6px;
+  background: #fff;
+  padding: 3px;
+  box-shadow: 0 0 0 3px #fff;
+}
+
+.qr-card__logo-overlay img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.qr-card__amount {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--sp-1);
+}
+
+.qr-card__status {
+  font-size: var(--fs-2xs);
+  font-weight: 600;
+  color: var(--text-tertiary);
+  margin-bottom: var(--sp-3);
+}
+
+.qr-card__status.is-paid {
+  color: var(--color-success);
+}
+
+.qr-card__actions {
+  display: flex;
+  gap: var(--sp-2);
+}
+
+.qr-card__actions .btn {
+  flex: 1;
+}
+
+/* Confirm-paid full-width button under each */
+.confirm-paid-btn {
+  width: 100%;
+}
+
+.confirm-paid-btn.is-confirmed {
+  background: var(--color-success);
+  pointer-events: none;
+}
+
+/* Success checkmark overlay animation */
+.success-check-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-overlay);
+  animation: fade-in var(--dur-fast) var(--ease-standard) forwards;
+}
+
+.success-check-overlay.is-closing {
+  animation: fade-out var(--dur-fast) var(--ease-standard) forwards;
+}
+
+.success-check-card {
+  background: var(--bg-surface);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-8) var(--sp-6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  max-width: 300px;
+  transform: scale(0.85);
+  animation: dialog-in var(--dur-base) var(--ease-spring) forwards;
+}
+
+.check-circle-svg {
+  width: 96px;
+  height: 96px;
+  margin-bottom: var(--sp-5);
+}
+
+.check-circle-svg .circle {
+  stroke: var(--color-success);
+  stroke-width: 4;
+  fill: none;
+  stroke-dasharray: 245;
+  stroke-dashoffset: 245;
+  animation: draw-circle 0.5s var(--ease-out) forwards;
+}
+
+.check-circle-svg .tick {
+  stroke: var(--color-success);
+  stroke-width: 5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: draw-tick 0.35s var(--ease-out) 0.45s forwards;
+}
+
+@keyframes draw-circle {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes draw-tick {
+  to { stroke-dashoffset: 0; }
+}
+
+.success-check-card h3 {
+  font-size: var(--fs-lg);
+  margin-bottom: var(--sp-2);
+  color: var(--color-success-strong);
+}
+
+.success-check-card p {
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+}
+
+/* Save transaction bar (after confirming all) */
+.finalize-bar {
+  margin-top: var(--sp-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+/* Reset link */
+.reset-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--text-tertiary);
+  background: none;
+  border: none;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  padding: var(--sp-3);
+  cursor: pointer;
+  width: 100%;
+}

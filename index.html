@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>BillBreak — Free UPI Bill Splitter for Businesses</title>
+  <meta name="description" content="BillBreak helps Indian businesses split bills into UPI QR codes under ₹2,000 to avoid the new merchant discount rate — completely free, no backend, works offline." />
+  <meta name="theme-color" content="#0B3D91" />
+
+  <!-- PWA manifest -->
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- Icons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png" />
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="BillBreak" />
+
+  <!-- Fonts: Poppins (display) + Inter (body). Self-hosted for offline PWA reliability. -->
+  <link rel="stylesheet" href="assets/fonts/fonts.css" />
+
+  <!-- Font Awesome (self-hosted for offline support) -->
+  <link rel="stylesheet" href="assets/fontawesome/css/all.min.css" />
+
+  <!-- App styles -->
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/onboarding.css" />
+  <link rel="stylesheet" href="css/splitter.css" />
+  <link rel="stylesheet" href="css/transactions.css" />
+  <link rel="stylesheet" href="css/settings.css" />
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div id="app">
+
+    <!-- ======================================================================
+         ONBOARDING (first launch only)
+         ====================================================================== -->
+    <section id="onboarding-screen" class="onboarding" aria-labelledby="onboarding-heading" hidden>
+      <div class="onboarding__slides" id="onboarding-slides">
+
+        <div class="onboarding__slide is-active" data-slide="0">
+          <div class="onboarding__art" aria-hidden="true"><i class="fa-solid fa-qrcode"></i></div>
+          <h1 id="onboarding-heading">Meet BillBreak</h1>
+          <p>From 15 October 2026, UPI payments over ₹2,000 to merchants carry a 0.4% fee. BillBreak splits any bill into smaller QR codes so each payment stays compliant.</p>
+        </div>
+
+        <div class="onboarding__slide" data-slide="1">
+          <div class="onboarding__art" aria-hidden="true"><i class="fa-solid fa-layer-group"></i></div>
+          <h1>Split, don't pay extra</h1>
+          <p>Enter your total bill once. BillBreak instantly generates the fewest possible UPI QR codes, each kept at or below ₹1,999, split as evenly as possible.</p>
+        </div>
+
+        <div class="onboarding__slide" data-slide="2">
+          <div class="onboarding__art" aria-hidden="true"><i class="fa-solid fa-shield-heart"></i></div>
+          <h1>100% free, always</h1>
+          <p>No percentage charged, no backend server, no card fees. Every QR code is generated on your own device and works even without internet.</p>
+          <div class="onboarding__badge-row">
+            <span class="onboarding__badge">No signup</span>
+            <span class="onboarding__badge">Works offline</span>
+            <span class="onboarding__badge">0% fee</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="onboarding__dots" id="onboarding-dots" role="tablist" aria-label="Onboarding progress">
+        <button class="onboarding__dot is-active" role="tab" aria-selected="true" aria-label="Slide 1 of 3" data-dot="0"></button>
+        <button class="onboarding__dot" role="tab" aria-selected="false" aria-label="Slide 2 of 3" data-dot="1"></button>
+        <button class="onboarding__dot" role="tab" aria-selected="false" aria-label="Slide 3 of 3" data-dot="2"></button>
+      </div>
+
+      <div class="onboarding__footer">
+        <button class="btn btn-primary btn-block ripple-surface" id="onboarding-next-btn" type="button">
+          <span id="onboarding-next-label">Next</span>
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </button>
+        <button class="onboarding__skip" id="onboarding-skip-btn" type="button">Skip introduction</button>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SETUP (business name + UPI ID, shown once after onboarding)
+         ====================================================================== -->
+    <section id="setup-screen" class="setup-screen" aria-labelledby="setup-heading" hidden>
+      <div class="setup-screen__header">
+        <div class="logo-mark">
+          <img src="assets/icons/icon-192x192.png" alt="" />
+        </div>
+        <h1 id="setup-heading">Set up your business</h1>
+        <p>This takes 30 seconds. Your details stay on this device and are used to prefill every QR code you generate.</p>
+      </div>
+
+      <form class="setup-screen__form" id="setup-form" novalidate>
+        <div class="field">
+          <label for="setup-business-name">Business name</label>
+          <input class="input" type="text" id="setup-business-name" name="businessName" placeholder="e.g. Sharma General Store" autocomplete="organization" required maxlength="60" />
+          <span class="error-text"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i> Please enter your business name</span>
+        </div>
+
+        <div class="field">
+          <label for="setup-upi-id">UPI ID</label>
+          <input class="input" type="text" id="setup-upi-id" name="upiId" placeholder="e.g. yourbusiness@okicici" autocomplete="off" autocapitalize="off" spellcheck="false" required />
+          <span class="hint">Your VPA — the ID customers already pay you at (e.g. name@bank).</span>
+          <span class="error-text"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i> Enter a valid UPI ID, like name@bank</span>
+        </div>
+
+        <div class="upi-verify-note">
+          <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+          <span>BillBreak never processes payments or touches your money. QR codes point customers straight to your existing UPI ID — the same as any other UPI QR code.</span>
+        </div>
+      </form>
+
+      <div class="setup-screen__footer">
+        <button class="btn btn-primary btn-block ripple-surface" id="setup-continue-btn" type="submit" form="setup-form">
+          Start using BillBreak
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         MAIN APP (shown after setup is complete)
+         ====================================================================== -->
+    <div id="main-app" hidden>
+
+      <header class="topbar">
+        <div class="topbar__title" id="page-title">
+          <span class="brand-mark"><img src="assets/icons/icon-96x96.png" alt="" /></span>
+          <span id="page-title-text">BillBreak</span>
+        </div>
+        <button class="topbar__action" id="theme-toggle-topbar-btn" type="button" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon" aria-hidden="true"></i>
+        </button>
+      </header>
+
+      <main class="app-main" id="main-content">
+
+        <!-- ---------------- QR SPLITTER (default / center tab) ---------------- -->
+        <section id="screen-splitter" class="splitter" aria-labelledby="page-title-text">
+
+          <div class="amount-card">
+            <label class="amount-card__label" for="bill-amount-input">
+              <i class="fa-solid fa-indian-rupee-sign" aria-hidden="true"></i> Total bill amount
+            </label>
+            <div class="amount-input-row">
+              <span class="currency-sym" aria-hidden="true">₹</span>
+              <input
+                class="amount-input"
+                id="bill-amount-input"
+                type="number"
+                inputmode="decimal"
+                min="1"
+                step="0.01"
+                placeholder="0"
+                aria-label="Total bill amount in rupees"
+              />
+            </div>
+
+            <div class="amount-card__meta-row">
+              <span class="upi-chip">
+                <i class="fa-solid fa-at" aria-hidden="true"></i>
+                <span id="current-upi-display">yourbusiness@okicici</span>
+              </span>
+              <button class="topbar__action" id="edit-upi-quick-btn" type="button" aria-label="Edit UPI ID" style="width:32px;height:32px;color:rgba(255,255,255,0.85);">
+                <i class="fa-solid fa-pen" aria-hidden="true" style="font-size:0.8rem;"></i>
+              </button>
+            </div>
+
+            <div class="amount-card__error" id="amount-error" hidden>
+              <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+              <span>Enter an amount greater than ₹0</span>
+            </div>
+          </div>
+
+          <button class="optional-fields-toggle" id="optional-fields-toggle" type="button" aria-expanded="false" aria-controls="optional-fields">
+            <span>Add customer details (optional)</span>
+            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+          </button>
+
+          <div class="optional-fields" id="optional-fields">
+            <div class="optional-fields__inner">
+              <div class="field">
+                <label for="customer-name-input">Customer name</label>
+                <input class="input" type="text" id="customer-name-input" placeholder="Optional" maxlength="40" autocomplete="off" />
+              </div>
+              <div class="field">
+                <label for="customer-phone-input">Contact number</label>
+                <input class="input" type="tel" id="customer-phone-input" placeholder="Optional" maxlength="15" autocomplete="off" inputmode="tel" />
+              </div>
+              <div class="field" style="margin-bottom:0;">
+                <label for="payment-note-input">Payment note</label>
+                <input class="input" type="text" id="payment-note-input" placeholder="e.g. Bill #1042" maxlength="50" autocomplete="off" />
+              </div>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-block ripple-surface" id="generate-qr-btn" type="button" style="margin-top: var(--sp-5);">
+            <i class="fa-solid fa-qrcode" aria-hidden="true"></i>
+            Generate QR codes
+          </button>
+
+          <!-- Results area, populated by JS -->
+          <div id="qr-results-container"></div>
+
+        </section>
+
+        <!-- ---------------- RECENT TRANSACTIONS (left tab) ---------------- -->
+        <section id="screen-transactions" class="transactions" aria-labelledby="page-title-text" hidden>
+
+          <div class="tx-search-bar">
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+            <input class="input" type="search" id="tx-search-input" placeholder="Search by name or amount" aria-label="Search transactions" />
+          </div>
+
+          <div class="tx-filter-row">
+            <div class="chip-row" role="group" aria-label="Filter by date range">
+              <button class="chip is-active" data-range="all" type="button">All time</button>
+              <button class="chip" data-range="today" type="button">Today</button>
+              <button class="chip" data-range="week" type="button">This week</button>
+              <button class="chip" data-range="month" type="button">This month</button>
+              <button class="chip" data-range="custom" type="button">
+                <i class="fa-regular fa-calendar" aria-hidden="true"></i> Custom
+              </button>
+            </div>
+            <div class="date-range-panel" id="custom-date-panel" hidden>
+              <div class="field" style="margin-bottom:0;">
+                <label for="date-range-from">From</label>
+                <input class="input" type="date" id="date-range-from" />
+              </div>
+              <div class="field" style="margin-bottom:0;">
+                <label for="date-range-to">To</label>
+                <input class="input" type="date" id="date-range-to" />
+              </div>
+            </div>
+          </div>
+
+          <div class="tx-filter-summary">
+            <span class="tx-filter-summary__count" id="tx-count-label">0 transactions</span>
+            <button class="btn btn-secondary btn-sm tx-export-menu-btn" id="export-menu-btn" type="button">
+              <i class="fa-solid fa-file-export" aria-hidden="true"></i> Export
+            </button>
+          </div>
+
+          <div id="tx-list-container">
+            <!-- Populated by JS: either .tx-list, skeletons, or .empty-state -->
+          </div>
+
+        </section>
+
+        <!-- ---------------- SETTINGS & PROFILE (right tab) ---------------- -->
+        <section id="screen-settings" class="settings" aria-labelledby="page-title-text" hidden>
+
+          <div class="card settings-profile-card">
+            <div class="settings-profile-card__avatar" id="settings-avatar-initial">B</div>
+            <div class="settings-profile-card__info">
+              <h2 id="settings-business-name-display">Business name</h2>
+              <p id="settings-upi-display">upi@bank</p>
+            </div>
+          </div>
+
+          <div class="settings-section">
+            <h3 class="settings-section__title">Business details</h3>
+            <div class="card settings-card">
+              <form id="settings-form">
+                <div class="field" style="margin-top: var(--sp-4);">
+                  <label for="settings-business-name">Business name</label>
+                  <input class="input" type="text" id="settings-business-name" maxlength="60" required />
+                </div>
+                <div class="field">
+                  <label for="settings-upi-id">UPI ID</label>
+                  <input class="input" type="text" id="settings-upi-id" autocapitalize="off" spellcheck="false" required />
+                  <span class="error-text"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i> Enter a valid UPI ID, like name@bank</span>
+                </div>
+                <div class="field" style="margin-bottom: var(--sp-4);">
+                  <label for="settings-default-amount">Default bill amount <span class="text-tertiary">(optional)</span></label>
+                  <div class="input-prefix-group">
+                    <span class="prefix">₹</span>
+                    <input class="input" type="number" id="settings-default-amount" min="0" step="0.01" placeholder="None" inputmode="decimal" />
+                  </div>
+                  <span class="hint">Pre-fills the amount field when you open the QR Splitter tab.</span>
+                </div>
+                <button class="btn btn-primary btn-block ripple-surface" type="submit" style="margin-bottom: var(--sp-4);">
+                  <i class="fa-solid fa-floppy-disk" aria-hidden="true"></i> Save changes
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <div class="settings-section">
+            <h3 class="settings-section__title">Appearance</h3>
+            <div class="card settings-card">
+              <div class="toggle-row">
+                <div class="toggle-row__label">
+                  <span class="icon-badge"><i class="fa-solid fa-circle-half-stroke" aria-hidden="true"></i></span>
+                  <div class="toggle-row__text">
+                    <strong>Dark mode</strong>
+                    <span>Switch between light and dark theme</span>
+                  </div>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="dark-mode-toggle" aria-label="Toggle dark mode" />
+                  <span class="switch-track"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-section">
+            <h3 class="settings-section__title">About BillBreak</h3>
+            <div class="card settings-card" style="padding-top: var(--sp-4); padding-bottom: var(--sp-4);">
+              <p class="about-text">
+                From 15 October 2026, UPI payments to merchants above ₹2,000 carry a 0.4% Merchant Discount Rate (MDR),
+                deducted from what the business receives. BillBreak helps you stay comfortably compliant by splitting
+                any total bill into the minimum number of separate UPI QR codes, each kept at or below ₹1,999.
+              </p>
+              <p class="about-text">
+                Every QR code is a standard UPI payment link generated entirely on your device — nothing is sent to
+                any server. BillBreak does not process payments, hold your money, or verify transactions; your
+                customer's UPI app handles the payment exactly as it always has.
+              </p>
+              <div class="about-highlight">
+                <i class="fa-solid fa-heart" aria-hidden="true"></i>
+                <p>Completely free to use. No percentage charged, no subscription, no hidden fees — ever.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-section">
+            <h3 class="settings-section__title">Data</h3>
+            <div class="card settings-card">
+              <button class="settings-list-item" id="export-all-data-btn" type="button">
+                <span class="icon-badge" style="background:var(--color-primary-tint); color:var(--color-primary);"><i class="fa-solid fa-download" aria-hidden="true"></i></span>
+                <span class="item-label">Export all transaction data</span>
+                <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+              </button>
+              <button class="settings-list-item" id="clear-all-data-btn" type="button">
+                <span class="icon-badge" style="background:var(--color-danger-soft); color:var(--color-danger);"><i class="fa-solid fa-trash" aria-hidden="true"></i></span>
+                <span class="item-label" style="color:var(--color-danger);">Clear all data</span>
+                <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="app-version-footer">
+            <div class="brand-mark-sm"><img src="assets/icons/icon-96x96.png" alt="" /></div>
+            <p>BillBreak</p>
+            <p>Version 1.0.0</p>
+          </div>
+
+        </section>
+
+      </main>
+
+      <nav class="tabbar" aria-label="Main navigation">
+        <button class="tabbar__item" data-tab="transactions" type="button" aria-label="Recent Transactions">
+          <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+          <span>Transactions</span>
+        </button>
+        <button class="tabbar__item is-active" data-tab="splitter" type="button" aria-label="QR Splitter" aria-current="page">
+          <i class="fa-solid fa-qrcode" aria-hidden="true"></i>
+          <span>Split Bill</span>
+        </button>
+        <button class="tabbar__item" data-tab="settings" type="button" aria-label="Settings and Profile">
+          <i class="fa-solid fa-gear" aria-hidden="true"></i>
+          <span>Settings</span>
+        </button>
+      </nav>
+
+    </div>
+
+  </div>
+
+  <!-- Toast notification region -->
+  <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Modal root: dynamically populated by JS for sheets, dialogs, success animation -->
+  <div id="modal-root"></div>
+
+  <!-- ==========================================================================
+       Scripts — loaded in dependency order. All local, no CDN, offline-capable.
+       ========================================================================== -->
+  <script src="js/vendor/qrcode.min.js" defer></script>
+  <script src="js/storage.js" defer></script>
+  <script src="js/upi.js" defer></script>
+  <script src="js/splitter-logic.js" defer></script>
+  <script src="js/theme.js" defer></script>
+  <script src="js/toast.js" defer></script>
+  <script src="js/onboarding.js" defer></script>
+  <script src="js/qr-render.js" defer></script>
+  <script src="js/transactions.js" defer></script>
+  <script src="js/settings.js" defer></script>
+  <script src="js/splitter-ui.js" defer></script>
+  <script src="js/navigation.js" defer></script>
+  <script src="js/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+/* ==========================================================================
+   BillBreak — Design Tokens
+   Central source of truth for color, type, spacing and motion.
+   Light and dark themes are expressed as CSS custom property overrides
+   on [data-theme="light"] / [data-theme="dark"] set on <html>.
+   ========================================================================== */
+
+:root {
+  /* ---- Brand palette (theme-independent) ---- */
+  --brand-blue-900: #082A66;
+  --brand-blue-800: #0B3D91;
+  --brand-blue-700: #114FB8;
+  --brand-blue-600: #1A5FD6;
+  --brand-blue-100: #E4ECFB;
+  --brand-blue-50:  #F1F5FD;
+
+  --brand-green-700: #0F7A3D;
+  --brand-green-600: #16A34A;
+  --brand-green-500: #22C55E;
+  --brand-green-100: #DCFCE7;
+
+  --brand-amber-700: #B45309;
+  --brand-amber-600: #D97706;
+  --brand-amber-500: #F59E0B;
+  --brand-amber-100: #FEF3C7;
+
+  --brand-red-600: #DC2626;
+  --brand-red-100: #FEE2E2;
+
+  /* ---- Type ---- */
+  --font-display: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Inter', 'Segoe UI', system-ui, sans-serif;
+
+  --fs-2xs: 0.6875rem;   /* 11px */
+  --fs-xs:  0.75rem;     /* 12px */
+  --fs-sm:  0.8125rem;   /* 13px */
+  --fs-base:0.9375rem;   /* 15px */
+  --fs-md:  1.0625rem;   /* 17px */
+  --fs-lg:  1.25rem;     /* 20px */
+  --fs-xl:  1.5rem;      /* 24px */
+  --fs-2xl: 1.875rem;    /* 30px */
+  --fs-3xl: 2.375rem;    /* 38px */
+
+  --lh-tight: 1.2;
+  --lh-normal: 1.5;
+  --lh-relaxed: 1.65;
+
+  /* ---- Spacing scale (4px base) ---- */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.25rem;
+  --sp-6: 1.5rem;
+  --sp-8: 2rem;
+  --sp-10: 2.5rem;
+  --sp-12: 3rem;
+  --sp-16: 4rem;
+
+  /* ---- Radius ---- */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 999px;
+
+  /* ---- Motion ---- */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --dur-fast: 120ms;
+  --dur-base: 220ms;
+  --dur-slow: 420ms;
+  --dur-slower: 650ms;
+
+  /* ---- Layout ---- */
+  --max-content-width: 560px;
+  --tabbar-height: 68px;
+  --topbar-height: 56px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-top: env(safe-area-inset-top, 0px);
+
+  /* ---- Elevation (shared shape, theme supplies actual shadow color) ---- */
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 1px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 14px rgba(15, 23, 42, 0.09), 0 1px 3px rgba(15, 23, 42, 0.06);
+  --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.14), 0 2px 6px rgba(15, 23, 42, 0.08);
+  --shadow-card-rest: 0 1px 3px rgba(15, 23, 42, 0.08);
+}
+
+/* ==========================================================================
+   LIGHT THEME (default)
+   ========================================================================== */
+:root,
+[data-theme='light'] {
+  --color-primary: var(--brand-blue-800);
+  --color-primary-strong: var(--brand-blue-900);
+  --color-primary-soft: var(--brand-blue-100);
+  --color-primary-tint: var(--brand-blue-50);
+
+  --color-success: var(--brand-green-600);
+  --color-success-strong: var(--brand-green-700);
+  --color-success-soft: var(--brand-green-100);
+
+  --color-accent: var(--brand-amber-500);
+  --color-accent-strong: var(--brand-amber-700);
+  --color-accent-soft: var(--brand-amber-100);
+
+  --color-danger: var(--brand-red-600);
+  --color-danger-soft: var(--brand-red-100);
+
+  --bg-app: #F5F7FB;
+  --bg-surface: #FFFFFF;
+  --bg-surface-raised: #FFFFFF;
+  --bg-surface-sunken: #EEF2F9;
+  --bg-overlay: rgba(15, 23, 42, 0.48);
+
+  --border-subtle: #E3E8F1;
+  --border-default: #D3DAE6;
+  --border-strong: #B7C1D6;
+
+  --text-primary: #0F172A;
+  --text-secondary: #4B5871;
+  --text-tertiary: #7C879C;
+  --text-on-primary: #FFFFFF;
+  --text-on-success: #FFFFFF;
+  --text-on-accent: #1F1300;
+  --text-link: var(--brand-blue-700);
+
+  --skeleton-base: #E7EBF2;
+  --skeleton-shine: #F5F7FB;
+
+  color-scheme: light;
+}
+
+/* ==========================================================================
+   DARK THEME
+   ========================================================================== */
+[data-theme='dark'] {
+  --color-primary: #4C82E8;
+  --color-primary-strong: #6C9BF0;
+  --color-primary-soft: #16264A;
+  --color-primary-tint: #101B33;
+
+  --color-success: #34D673;
+  --color-success-strong: #4FE28C;
+  --color-success-soft: #113822;
+
+  --color-accent: #FBBF3F;
+  --color-accent-strong: #FFD066;
+  --color-accent-soft: #3A2A0B;
+
+  --color-danger: #F16060;
+  --color-danger-soft: #3A1414;
+
+  --bg-app: #0B1220;
+  --bg-surface: #131C2E;
+  --bg-surface-raised: #17223A;
+  --bg-surface-sunken: #0E1626;
+  --bg-overlay: rgba(2, 6, 16, 0.64);
+
+  --border-subtle: #212E47;
+  --border-default: #2A3854;
+  --border-strong: #3B4C6E;
+
+  --text-primary: #EEF2FB;
+  --text-secondary: #A6B1C9;
+  --text-tertiary: #78839C;
+  --text-on-primary: #FFFFFF;
+  --text-on-success: #08210F;
+  --text-on-accent: #1F1300;
+  --text-link: #82AAF5;
+
+  --skeleton-base: #1B2740;
+  --skeleton-shine: #22304C;
+
+  color-scheme: dark;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.36);
+  --shadow-lg: 0 14px 34px rgba(0, 0, 0, 0.48);
+  --shadow-card-rest: 0 1px 3px rgba(0, 0, 0, 0.32);
+}
+
+/* Respect user's reduced-motion preference globally */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0.01ms;
+    --dur-base: 0.01ms;
+    --dur-slow: 0.01ms;
+    --dur-slower: 0.01ms;
+  }
+}
